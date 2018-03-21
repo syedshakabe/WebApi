@@ -9,7 +9,7 @@ using System.Web.Http.Cors;
 namespace WebApplication5.Controllers
 {
       [EnableCorsAttribute("*", "*", "*")]
-      [Authorize]
+     
     public class Store2DoorController : ApiController
     {
        
