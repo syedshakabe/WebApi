@@ -67,6 +67,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Category.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>Category.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Category.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Category1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Category.tt</DependentUpon>
+    </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
@@ -94,13 +112,32 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Category.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Category.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Category.edmx.diagram">
+      <DependentUpon>Category.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Store2DoorDataModel.edmx.diagram">
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Category.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Category.edmx</DependentUpon>
+      <LastGenOutput>Category.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Category.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Category.edmx</DependentUpon>
+      <LastGenOutput>Category1.cs</LastGenOutput>
+    </Content>
     <Content Include="Store2DoorDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
