@@ -20,5 +20,7 @@ namespace Store2DoorDataAccess
         public string product_name { get; set; }
         public string user_id { get; set; }
         public int order_id { get; set; }
+    
+        public virtual Order Order { get; set; }
     }
 }

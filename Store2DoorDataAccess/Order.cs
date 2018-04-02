@@ -14,10 +14,17 @@ namespace Store2DoorDataAccess
     
     public partial class Order
     {
+        public Order()
+        {
+            this.Cart_Item = new HashSet<Cart_Item>();
+        }
+    
         public int order_id { get; set; }
         public int user_id { get; set; }
         public System.DateTime date { get; set; }
         public string status { get; set; }
         public decimal total_bill { get; set; }
+    
+        public virtual ICollection<Cart_Item> Cart_Item { get; set; }
     }
 }

@@ -86,7 +86,22 @@
       <DependentUpon>CartItem.edmx</DependentUpon>
     </Compile>
     <Compile Include="Cart_Item.cs">
-      <DependentUpon>CartItem.tt</DependentUpon>
+      <DependentUpon>Categories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categories.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Categories.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categories.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Categories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categories.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Categories.edmx</DependentUpon>
     </Compile>
     <Compile Include="Category.Context.cs">
       <AutoGen>True</AutoGen>
@@ -94,7 +109,7 @@
       <DependentUpon>Category.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>Category.tt</DependentUpon>
+      <DependentUpon>Categories.tt</DependentUpon>
     </Compile>
     <Compile Include="Category.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,7 +127,7 @@
       <DependentUpon>Order.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
-      <DependentUpon>Order.tt</DependentUpon>
+      <DependentUpon>Categories.tt</DependentUpon>
     </Compile>
     <Compile Include="Order.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -180,6 +195,13 @@
     <None Include="CartItem.edmx.diagram">
       <DependentUpon>CartItem.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Categories.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Categories.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Categories.edmx.diagram">
+      <DependentUpon>Categories.edmx</DependentUpon>
+    </None>
     <None Include="Category.edmx.diagram">
       <DependentUpon>Category.edmx</DependentUpon>
     </None>
@@ -212,6 +234,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CartItem.edmx</DependentUpon>
       <LastGenOutput>CartItem.cs</LastGenOutput>
+    </Content>
+    <Content Include="Categories.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Categories.edmx</DependentUpon>
+      <LastGenOutput>Categories.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Categories.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Categories.edmx</DependentUpon>
+      <LastGenOutput>Categories.cs</LastGenOutput>
     </Content>
     <Content Include="Category.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
