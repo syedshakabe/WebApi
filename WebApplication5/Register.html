@@ -21,10 +21,12 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr>
                         <td>Email</td>
                         <td><input type="text" id="txtEmail" placeholder="Email" /> </td>
                     </tr>
+
                     <tr>
                         <td>Password</td>
                         <td>
@@ -32,13 +34,32 @@
                                    placeholder="Password" />
                         </td>
                     </tr>
+
                     <tr>
                         <td>Confirm Password</td>
                         <td>
                             <input type="password" id="txtConfirmPassword"
                                    placeholder="Confirm Password" />
                         </td>
+                        </tr>
+
+                    <tr>
+                        <td>DisplayName</td>
+                        <td>
+                            <input type="text" id="txtName"
+                                   placeholder="Name" />
+                        </td>
                     </tr>
+
+                   
+                     <tr>
+                        <td>Phone Number</td>
+                        <td>
+                            <input type="tel" id="txtPhone"
+                                   placeholder="Phone Number" />
+                        </td>
+                    </tr>
+
                     <tr class="success">
                         <td colspan="2">
                             <input id="btnRegister" class="btn btn-success"
@@ -97,6 +118,8 @@
                     url: '/api/account/register',
                     method: 'POST',
                     data: {
+                        displayname: $('#txtName').val(),
+                        PhoneNumber:$('#txtPhone').val(),
                         email: $('#txtEmail').val(),
                         password: $('#txtPassword').val(),
                         confirmPassword: $('#txtConfirmPassword').val()

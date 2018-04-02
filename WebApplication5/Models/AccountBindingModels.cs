@@ -34,6 +34,27 @@ namespace WebApplication5.Models
 
     public class RegisterBindingModel
     {
+        //added by me
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "PhoneNumber")]
+        public string PhoneNumber { get; set; }
+
+       
+
+
+        //added by me
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "DisplayName")]
+        public string DisplayName { get; set; }
+
+        
+
+
+
+        //already  implemented
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }

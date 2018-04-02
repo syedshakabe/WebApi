@@ -7,22 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication5.Models
+namespace Store2DoorDataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class Cart_Item
     {
-        public AspNetRole()
-        {
-            this.AspNetUsers = new HashSet<AspNetUser>();
-        }
-    
-        public string Id { get; set; }
-        public string Name { get; set; }
-
-    
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public int cart_id { get; set; }
+        public int product_id { get; set; }
+        public string product_price { get; set; }
+        public string product_name { get; set; }
+        public string user_id { get; set; }
+        public int order_id { get; set; }
     }
 }

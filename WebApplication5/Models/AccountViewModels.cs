@@ -23,15 +23,25 @@ namespace WebApplication5.Models
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
+        //added by me
+        public string id { get; set; }
+        public string DisplayName { get; set; }//added by me
+
+        public string PhoneNumber { get; set; }
     }
 
     public class UserInfoViewModel
     {
         public string Email { get; set; }
 
+
+      
+
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+        public string DisplayName { get; set; }
+       
     }
 
     public class UserLoginInfoViewModel

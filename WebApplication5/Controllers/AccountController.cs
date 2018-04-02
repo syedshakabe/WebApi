@@ -30,6 +30,7 @@ namespace WebApplication5.Controllers
 
         public AccountController()
         {
+
         }
        
         public AccountController(ApplicationUserManager userManager,
@@ -59,10 +60,12 @@ namespace WebApplication5.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+             var user = UserManager.FindByName(User.Identity.Name);
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
+               // DisplayName= user.DisplayName,
+               
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
@@ -80,7 +83,7 @@ namespace WebApplication5.Controllers
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+          var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
             if (user == null)
             {
@@ -110,7 +113,17 @@ namespace WebApplication5.Controllers
             return new ManageInfoViewModel
             {
                 LocalLoginProvider = LocalLoginProvider,
-                Email = user.UserName,
+                Email = user.Email,
+                id = user.Id,
+               
+                PhoneNumber = user.PhoneNumber,
+              DisplayName = user.DisplayName,
+
+              
+                
+                
+                
+              
                 Logins = logins,
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
@@ -330,7 +343,7 @@ namespace WebApplication5.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { Email = model.Email, PhoneNumber = model.PhoneNumber, UserName = model.PhoneNumber,DisplayName=model.DisplayName};
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

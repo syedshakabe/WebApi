@@ -7,22 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication5.Models
+namespace Store2DoorDataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class Order
     {
-        public AspNetRole()
-        {
-            this.AspNetUsers = new HashSet<AspNetUser>();
-        }
-    
-        public string Id { get; set; }
-        public string Name { get; set; }
-
-    
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public int order_id { get; set; }
+        public int user_id { get; set; }
+        public System.DateTime date { get; set; }
+        public string status { get; set; }
+        public decimal total_bill { get; set; }
     }
 }
