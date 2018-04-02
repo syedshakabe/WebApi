@@ -5,11 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Store2DoorDataAccess;
-
 namespace WebApplication5.Controllers
 {
     public class CategoryController : ApiController
     {
+       
+        
+        
         public IEnumerable<Category> Get()
         {
             using (CategoryEntity entities = new CategoryEntity())
@@ -17,7 +19,82 @@ namespace WebApplication5.Controllers
                 return entities.Categories.ToList();
             }
         }
-         public HttpResponseMessage Post([FromBody] Category category)
+
+
+
+
+
+
+
+        public HttpResponseMessage Get(int id)
+        {
+            using (CategoryEntity entities = new CategoryEntity())
+            {
+                var entity = entities.Categories.FirstOrDefault(e => e.id == id);
+                {
+                    if (entity != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, entity);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found");
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        public HttpResponseMessage Put(int id, [FromBody]Category category)
+        {
+            try
+            {
+                using (CategoryEntity entities = new CategoryEntity())
+                {
+                    var entity = entities.Categories.FirstOrDefault(e => e.id == id);
+                    if (entity == null)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to edit");
+                    }
+                    else
+                    {
+                        entity.category1 = category.category1;
+                        
+                        entity.image = category.image;
+                       
+
+                        entities.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, entity);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        public HttpResponseMessage Post([FromBody]Category category)
         {
             try
             {
@@ -38,29 +115,6 @@ namespace WebApplication5.Controllers
 
         public HttpResponseMessage Delete(int id)
         {
-            try { 
-            using(CategoryEntity entities = new CategoryEntity())
-            {
-                var entity = entities.Categories.FirstOrDefault(e => e.id == id);
-                if(entity==null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to delete");
-                }
-                else
-                {
-                    entities.Categories.Remove(entity);
-                    entities.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                }
-               
-            }
-            }catch(Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
-        }
-        public HttpResponseMessage Put(int id ,[FromBody]Category category)
-        {
             try
             {
                 using (CategoryEntity entities = new CategoryEntity())
@@ -68,24 +122,25 @@ namespace WebApplication5.Controllers
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
                     if (entity == null)
                     {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to edit");
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to delete");
                     }
                     else
                     {
-                        entity.category1 = category.category1 ;
-                        entity.image = category.image;
-                       
-
+                        entities.Categories.Remove(entity);
                         entities.SaveChanges();
-                        return Request.CreateResponse(HttpStatusCode.OK, entity);
+                        return Request.CreateResponse(HttpStatusCode.OK);
                     }
 
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-    }
-    }
 
+
+
+
+    }
+}

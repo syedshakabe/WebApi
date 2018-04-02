@@ -67,77 +67,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspNetUser.cs">
-      <DependentUpon>User.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CartItem.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CartItem.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CartItem.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CartItem.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CartItem.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CartItem.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Cart_Item.cs">
-      <DependentUpon>Categories.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Categories.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Categories.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Categories.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Categories.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Categories.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Categories.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Category.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Category.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>Categories.tt</DependentUpon>
+      <DependentUpon>CategoryDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Category.Designer.cs">
+    <Compile Include="CategoryDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Category.edmx</DependentUpon>
+      <DependentUpon>CategoryDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Category1.cs">
+    <Compile Include="CategoryDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Category.tt</DependentUpon>
+      <DependentUpon>CategoryDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Order.Context.cs">
+    <Compile Include="CategoryDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Order.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>Categories.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Order.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Order1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Order.tt</DependentUpon>
+      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
@@ -158,21 +104,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="User.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.edmx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Store2DoorDataModel.edmx">
@@ -184,86 +115,28 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Category.edmx">
+    <EntityDeploy Include="CategoryDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Category.Designer.cs</LastGenOutput>
+      <LastGenOutput>CategoryDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="CartItem.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CartItem.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="CartItem.edmx.diagram">
-      <DependentUpon>CartItem.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Categories.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Categories.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Categories.edmx.diagram">
-      <DependentUpon>Categories.edmx</DependentUpon>
-    </None>
-    <None Include="Category.edmx.diagram">
-      <DependentUpon>Category.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Order.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Order.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Order.edmx.diagram">
-      <DependentUpon>Order.edmx</DependentUpon>
+    <None Include="CategoryDataModel.edmx.diagram">
+      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Store2DoorDataModel.edmx.diagram">
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="User.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>User.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="User.edmx.diagram">
-      <DependentUpon>User.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CartItem.Context.tt">
+    <Content Include="CategoryDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CartItem.edmx</DependentUpon>
-      <LastGenOutput>CartItem.Context.cs</LastGenOutput>
+      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
+      <LastGenOutput>CategoryDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CartItem.tt">
+    <Content Include="CategoryDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CartItem.edmx</DependentUpon>
-      <LastGenOutput>CartItem.cs</LastGenOutput>
-    </Content>
-    <Content Include="Categories.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Categories.edmx</DependentUpon>
-      <LastGenOutput>Categories.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Categories.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Categories.edmx</DependentUpon>
-      <LastGenOutput>Categories.cs</LastGenOutput>
-    </Content>
-    <Content Include="Category.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Category.edmx</DependentUpon>
-      <LastGenOutput>Category.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Category.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Category.edmx</DependentUpon>
-      <LastGenOutput>Category1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Order.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Order.edmx</DependentUpon>
-      <LastGenOutput>Order.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Order.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Order.edmx</DependentUpon>
-      <LastGenOutput>Order1.cs</LastGenOutput>
+      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
+      <LastGenOutput>CategoryDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Store2DoorDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -274,16 +147,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
       <LastGenOutput>Store2DoorDataModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="User.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>User.edmx</DependentUpon>
-      <LastGenOutput>User.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="User.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>User.edmx</DependentUpon>
-      <LastGenOutput>User.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
