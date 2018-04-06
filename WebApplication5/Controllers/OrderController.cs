@@ -43,7 +43,8 @@ namespace WebApplication5.Controllers
                         UserEmail = u.Email,
                         TotalBill = o.total_bill,
                         OrderStatus = o.status,
-                        order_id = o.order_id
+                        order_id = o.order_id,
+                        orderDate = o.date
                     }).ToList();
 
                 if(result!=null)
