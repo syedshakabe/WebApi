@@ -14,6 +14,11 @@ namespace Store2DoorDataAccess
     
     public partial class Product
     {
+        public Product()
+        {
+            this.Cart_Item = new HashSet<Cart_Item>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
         public string price { get; set; }
@@ -22,5 +27,7 @@ namespace Store2DoorDataAccess
         public string image { get; set; }
         public string quantity_type { get; set; }
         public string product_type { get; set; }
+    
+        public virtual ICollection<Cart_Item> Cart_Item { get; set; }
     }
 }

@@ -12,6 +12,16 @@ namespace WebApplication5.Controllers
      
     public class Store2DoorController : ApiController
     {
+
+         
+       Store2DoorEntities db = new Store2DoorEntities();
+
+
+        public Store2DoorController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
        
        
         public IEnumerable<Product>Get()
@@ -63,16 +73,29 @@ namespace WebApplication5.Controllers
             using(Store2DoorEntities entities = new Store2DoorEntities())
             {
                 var entity = entities.Products.FirstOrDefault(e => e.id == id);
-                if(entity==null)
+                var cart = entities.Cart_Item.FirstOrDefault(x => x.product_id == id);
+                if(cart==null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to delete");
+                    if(entity==null)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to delete");
+                    }
+                    else
+                    {
+                        entities.Products.Remove(entity);
+                        entities.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    } 
                 }
                 else
                 {
+                    entities.Cart_Item.Remove(cart);
                     entities.Products.Remove(entity);
                     entities.SaveChanges();
                     return Request.CreateResponse(HttpStatusCode.OK);
+
                 }
+                
                
             }
             }catch(Exception ex)

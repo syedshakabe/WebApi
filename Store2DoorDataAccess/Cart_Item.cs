@@ -16,11 +16,9 @@ namespace Store2DoorDataAccess
     {
         public int cart_id { get; set; }
         public int product_id { get; set; }
-        public string product_price { get; set; }
-        public string product_name { get; set; }
-        public string user_id { get; set; }
         public int order_id { get; set; }
     
         public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

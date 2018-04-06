@@ -5,33 +5,107 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Store2DoorDataAccess;
+using System.Data.Entity;
 
 namespace WebApplication5.Controllers
 {
     public class OrderController : ApiController
     {
+       Store2DoorEntities db = new Store2DoorEntities();
 
-        public IEnumerable<Order> Get()
+
+        public OrderController()
         {
-            using (OrderEntities entities = new OrderEntities())
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
+      
+
+
+
+        public HttpResponseMessage Get()
+        {
+            using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-                return entities.Orders.ToList();
+
+              //recieving all orders
+
+                var result = (
+                    from u in entities.AspNetUsers
+                    join o in entities.Orders
+                    on u.Id equals o.user_id
+                    where o.status!="delivered"
+                    select new
+                    {
+                       // userId = u.Id,
+                        userPhoneNumber = u.PhoneNumber,
+                        userName=u.DisplayName,
+                        UserEmail = u.Email,
+                        TotalBill = o.total_bill,
+                        OrderStatus = o.status,
+                        order_id = o.order_id
+                    }).ToList();
+
+                if(result!=null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "No pending orders");
+                }
+                
             }
         }
 
+        public HttpResponseMessage Get(int id)
+        {
+            using (Store2DoorEntities entities = new Store2DoorEntities())
+            {
+               
+              
+                //recieving orders
+                   return Request.CreateResponse(HttpStatusCode.OK, (
+                    from u in entities.AspNetUsers
+                    join o in entities.Orders
+                    on u.Id equals o.user_id
+                    where o.order_id==id
+                    select new
+                    {
+                       // Userid = u.Id,
+                        UserName = u.DisplayName,
+                        UserEmail = u.Email,
+                        userPhone = u.PhoneNumber,
+                        TotalBill = o.total_bill,
+                        OrderStatus = o.status,
+                        order_id = o.order_id
+                    }).ToList());
+
+            }
 
 
-        public HttpResponseMessage Post([FromBody]Order order)
+             
+                
+            }
+
+
+        [Authorize]
+        public HttpResponseMessage Post([FromBody] Order order)
         {
             try
             {
-                using (OrderEntities entities = new OrderEntities())
+                using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
-                    entities.Orders.Add(order);
-                    entities.SaveChanges();
-                    var message = Request.CreateResponse(HttpStatusCode.Created, order);
-                    message.Headers.Location = new Uri(Request.RequestUri +order.order_id.ToString());
-                    return message;
+                    Order n = new Order();
+                    n.status = "pending";
+                    n.total_bill = order.total_bill;
+                    n.user_id = order.user_id;
+                    n.date = DateTime.Now ;
+                             entities.Orders.Add(n);
+                             entities.SaveChanges();
+                             var message = Request.CreateResponse(HttpStatusCode.Created, order);
+                             message.Headers.Location = new Uri(Request.RequestUri + order.ToString());
+                             return message;
                 }
             }
             catch (Exception ex)
@@ -42,13 +116,11 @@ namespace WebApplication5.Controllers
 
 
 
-
-
         public HttpResponseMessage Put(int id, [FromBody]Order order)
         {
             try
             {
-                using (OrderEntities entities = new OrderEntities())
+                using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Orders.FirstOrDefault(e => e.order_id == id);
                     if (entity == null)
@@ -58,7 +130,7 @@ namespace WebApplication5.Controllers
                     else
                     {
                         entity.status = order.status;
-                        
+
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
@@ -70,5 +142,76 @@ namespace WebApplication5.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Authorize]
+        public HttpResponseMessage Delete(int id)
+        {
+            try
+            {
+                using (Store2DoorEntities entities = new Store2DoorEntities())
+                {
+                    var entity = entities.Orders.FirstOrDefault(e => e.order_id == id);
+                    var cart = entities.Cart_Item.FirstOrDefault(x => x.order_id == id);
+                    if (cart == null)
+                    {
+                        if (entity == null)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Order with id " + id.ToString() + " not found to delete");
+                        }
+                        else
+                        {
+                            entities.Orders.Remove(entity);
+                            entities.SaveChanges();
+                            return Request.CreateResponse(HttpStatusCode.OK);
+                        }
+                    }
+                    else
+                    {
+                        entities.Cart_Item.Remove(cart);
+                        entities.Orders.Remove(entity);
+                        entities.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK);
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
+        }
+
+
+
+
+
+     
+
+
+
+
+           
+        
+
+
+
+        
     }
-}
+

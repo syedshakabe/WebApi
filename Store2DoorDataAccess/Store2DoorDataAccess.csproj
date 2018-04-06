@@ -67,23 +67,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cart_Item.cs">
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>CategoryDataModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CategoryDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CategoryDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CategoryDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CategoryDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CategoryDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
+    <Compile Include="Order.cs">
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
@@ -106,38 +100,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <EntityDeploy Include="Store2DoorDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Store2DoorDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
-    <EntityDeploy Include="CategoryDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CategoryDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="CategoryDataModel.edmx.diagram">
-      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
-    </None>
-    <None Include="packages.config" />
     <None Include="Store2DoorDataModel.edmx.diagram">
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CategoryDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
-      <LastGenOutput>CategoryDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="CategoryDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CategoryDataModel.edmx</DependentUpon>
-      <LastGenOutput>CategoryDataModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Store2DoorDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
@@ -148,9 +126,6 @@
       <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
       <LastGenOutput>Store2DoorDataModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

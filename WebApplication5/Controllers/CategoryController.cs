@@ -14,7 +14,7 @@ namespace WebApplication5.Controllers
         
         public IEnumerable<Category> Get()
         {
-            using (CategoryEntity entities = new CategoryEntity())
+            using (Store2DoorEntities entities = new Store2DoorEntities())
             {
                 return entities.Categories.ToList();
             }
@@ -28,7 +28,7 @@ namespace WebApplication5.Controllers
 
         public HttpResponseMessage Get(int id)
         {
-            using (CategoryEntity entities = new CategoryEntity())
+            using (Store2DoorEntities entities = new Store2DoorEntities())
             {
                 var entity = entities.Categories.FirstOrDefault(e => e.id == id);
                 {
@@ -58,7 +58,7 @@ namespace WebApplication5.Controllers
         {
             try
             {
-                using (CategoryEntity entities = new CategoryEntity())
+                using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
                     if (entity == null)
@@ -98,7 +98,7 @@ namespace WebApplication5.Controllers
         {
             try
             {
-                using (CategoryEntity entities = new CategoryEntity())
+                using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     entities.Categories.Add(category);
                     entities.SaveChanges();
@@ -117,7 +117,7 @@ namespace WebApplication5.Controllers
         {
             try
             {
-                using (CategoryEntity entities = new CategoryEntity())
+                using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
                     if (entity == null)
