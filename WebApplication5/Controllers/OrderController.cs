@@ -105,7 +105,7 @@ namespace WebApplication5.Controllers
                              entities.Orders.Add(n);
                              entities.SaveChanges();
                              var message = Request.CreateResponse(HttpStatusCode.Created, order);
-                             message.Headers.Location = new Uri(Request.RequestUri + order.ToString());
+                             message.Headers.Location = new Uri(Request.RequestUri + order.order_id.ToString());
                              return message;
                 }
             }
