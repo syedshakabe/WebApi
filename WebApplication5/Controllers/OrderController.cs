@@ -101,7 +101,7 @@ namespace WebApplication5.Controllers
                     n.status = "pending";
                     n.total_bill = 7600;//Convert.ToDecimal(order.total_bill);
                     n.user_id = order.user_id;
-                    n.date = DateTime.Now ;
+                    n.date = DateTime.Now.AddHours(5) ;
                              entities.Orders.Add(n);
                              entities.SaveChanges();
                              var message = Request.CreateResponse(HttpStatusCode.Created, order);
