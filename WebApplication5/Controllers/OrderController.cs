@@ -104,8 +104,8 @@ namespace WebApplication5.Controllers
                     n.date = DateTime.Now.AddHours(5) ;
                              entities.Orders.Add(n);
                              entities.SaveChanges();
-                             var message = Request.CreateResponse(HttpStatusCode.Created, order);
-                             message.Headers.Location = new Uri(Request.RequestUri + order.order_id.ToString());
+                             var message = Request.CreateResponse(HttpStatusCode.Created, n);
+                             message.Headers.Location = new Uri(Request.RequestUri + n.order_id.ToString());
                              return message;
                 }
             }
