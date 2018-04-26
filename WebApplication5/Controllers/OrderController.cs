@@ -99,7 +99,7 @@ namespace WebApplication5.Controllers
                 {
                     Order n = new Order();
                     n.status = "pending";
-                    n.total_bill = 7600;//Convert.ToDecimal(order.total_bill);
+                    n.total_bill = Convert.ToDecimal(order.total_bill);
                     n.user_id = order.user_id;
                     n.date = DateTime.Now.AddHours(5) ;
                              entities.Orders.Add(n);
@@ -130,7 +130,7 @@ namespace WebApplication5.Controllers
                     }
                     else
                     {
-                        entity.status = order.status;
+                        entity.status =order.status;
 
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
