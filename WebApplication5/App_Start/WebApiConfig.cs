@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Cors;
+using System.Web.Http.Routing;
 
 namespace WebApplication5
 {
@@ -21,11 +22,35 @@ namespace WebApplication5
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config.Routes.MapHttpRoute("DefaultApiWithId", "Api/{controller}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
+            config.Routes.MapHttpRoute("DefaultApiWithAction", "Api/{controller}/{action}");
+            config.Routes.MapHttpRoute("DefaultApiGet", "Api/{controller}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
+            config.Routes.MapHttpRoute("DefaultApiPost", "Api/{controller}", new { action = "Post" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
+
+
+                        //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+
+
+
+//            config.Routes.MapHttpRoute(
+//    name: "ActionApi",
+//    routeTemplate: "api/{controller}/{action}/{id}",
+//    defaults: new { id = RouteParameter.Optional }
+//);
+
+
+
+
+          
+
+
+
+
+
  //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*","*");
             config.EnableCors();
             config.Formatters.Remove(config.Formatters.XmlFormatter);

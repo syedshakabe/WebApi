@@ -19,9 +19,7 @@ namespace WebApplication5.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-      
-
-
+    
 
         public HttpResponseMessage Get()
         {
@@ -197,16 +195,26 @@ namespace WebApplication5.Controllers
         }
 
 
+        
+
+
+    
+    [HttpGet]
+   
+        public HttpResponseMessage GetAll()
+        {
+            using (Store2DoorEntities entities = new Store2DoorEntities())
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, entities.Orders.ToList());
+
+            }
         }
-
-
-
 
 
      
 
 
-
+        }
 
            
         
