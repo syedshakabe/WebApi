@@ -33,6 +33,7 @@ namespace WebApplication5.Controllers
                     join o in entities.Orders
                     on u.Id equals o.user_id
                     where o.status!="delivered"
+                    orderby o.date descending
                     select new
                     {
                        // userId = u.Id,
@@ -203,13 +204,44 @@ namespace WebApplication5.Controllers
    
         public HttpResponseMessage GetAll()
         {
-            using (Store2DoorEntities entities = new Store2DoorEntities())
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, entities.Orders.ToList());
+                using (Store2DoorEntities entities = new Store2DoorEntities())
+                {
+                    var result = (
+                            from u in entities.AspNetUsers
+                            join o in entities.Orders
+                            on u.Id equals o.user_id
+                            where o.status != "accepted"&&o.status!="pending"
+                            orderby o.date descending
+                            select new
+                            {
+                                // userId = u.Id,
+                                userPhoneNumber = u.PhoneNumber,
+                                userName = u.DisplayName,
+                                UserEmail = u.Email,
+                                TotalBill = o.total_bill,
+                                OrderStatus = o.status,
+                                order_id = o.order_id,
+                                orderDate = o.date
+                            }).ToList();
 
+                    if (result != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, result);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "No pending orders");
+                    }
+                }
             }
-        }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
 
+        } 
 
      
 
