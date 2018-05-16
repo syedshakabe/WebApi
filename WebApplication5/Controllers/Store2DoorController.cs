@@ -20,6 +20,7 @@ namespace WebApplication5.Controllers
         public Store2DoorController()
         {
             db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.AutoDetectChangesEnabled = false;
         }
 
        
@@ -35,10 +36,20 @@ namespace WebApplication5.Controllers
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-                var entity =  entities.Products.FirstOrDefault(e => e.id == id);
-                {
+                var entity = entities.Products.Where(e=>e.category_id==id).ToList();
+                
+                //foreach (var x in entities.Products)
+                //{
+                //    if (x.category_id == id)
+                //    {
+                //        entity.Add(x);
+                //    }
+                //}
+
+             
                     if(entity!=null)
                     {
+
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
                     else
@@ -47,7 +58,7 @@ namespace WebApplication5.Controllers
                     }
                 }
             }
-        }
+        
         public HttpResponseMessage Post([FromBody] Product product)
         {
             try
