@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication5", "WebApplication5\WebApplication5.csproj", "{D1D03BC8-EA94-4A2B-87B1-B3A150E1B7F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store2DoorDataAccess", "Store2DoorDataAccess\Store2DoorDataAccess.csproj", "{9BB82583-06A4-4100-A071-BB216644B995}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store2DoorDataAccess", "Store2DoorDataAccess\Store2DoorDataAccess.csproj", "{0A1C8ADA-30E8-4CE1-A6CA-D0D8FB144E57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{D1D03BC8-EA94-4A2B-87B1-B3A150E1B7F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1D03BC8-EA94-4A2B-87B1-B3A150E1B7F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1D03BC8-EA94-4A2B-87B1-B3A150E1B7F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9BB82583-06A4-4100-A071-BB216644B995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BB82583-06A4-4100-A071-BB216644B995}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BB82583-06A4-4100-A071-BB216644B995}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BB82583-06A4-4100-A071-BB216644B995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A1C8ADA-30E8-4CE1-A6CA-D0D8FB144E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1C8ADA-30E8-4CE1-A6CA-D0D8FB144E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1C8ADA-30E8-4CE1-A6CA-D0D8FB144E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1C8ADA-30E8-4CE1-A6CA-D0D8FB144E57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

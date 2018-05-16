@@ -12,17 +12,12 @@ namespace Store2DoorDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class AspNetUserLogin
     {
-        public Category()
-        {
-            this.Products = new HashSet<Product>();
-        }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public int id { get; set; }
-        public string category1 { get; set; }
-    
-        public virtual CategoryImage CategoryImage { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

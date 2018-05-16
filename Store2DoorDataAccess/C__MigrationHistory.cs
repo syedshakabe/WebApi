@@ -12,17 +12,11 @@ namespace Store2DoorDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class C__MigrationHistory
     {
-        public Category()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
-        public int id { get; set; }
-        public string category1 { get; set; }
-    
-        public virtual CategoryImage CategoryImage { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

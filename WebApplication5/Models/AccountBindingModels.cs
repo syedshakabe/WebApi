@@ -49,7 +49,12 @@ namespace WebApplication5.Models
         [Display(Name = "DisplayName")]
         public string DisplayName { get; set; }
 
-        
+
+        //added by me
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Roles")]
+        public string Roles { get; set; }
 
 
 
@@ -69,6 +74,7 @@ namespace WebApplication5.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
     }
 
     public class RegisterExternalBindingModel

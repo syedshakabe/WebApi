@@ -5,22 +5,22 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Store2DoorDataAccess;
+
 namespace WebApplication5.Controllers
 {
-    public class CategoryController : ApiController
+    public class CategoryImagesController : ApiController
     {
-       
-        
-        
-        public IEnumerable<Category> Get()
+
+
+
+
+        public IEnumerable<CategoryImage> Get()
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-                return entities.Categories.ToList();
+                return entities.CategoryImages.ToList();
             }
         }
-
-
 
 
 
@@ -30,7 +30,7 @@ namespace WebApplication5.Controllers
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-                var entity = entities.Categories.FirstOrDefault(e => e.id == id);
+                var entity = entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
                 {
                     if (entity != null)
                     {
@@ -38,7 +38,7 @@ namespace WebApplication5.Controllers
                     }
                     else
                     {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found");
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category image with id " + id.ToString() + " not found");
                     }
                 }
             }
@@ -49,28 +49,23 @@ namespace WebApplication5.Controllers
 
 
 
-
-
-
-
-
-        public HttpResponseMessage Put(int id, [FromBody]Category category)
+        public HttpResponseMessage Put(int id, [FromBody]CategoryImage category)
         {
             try
             {
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
-                    var entity = entities.Categories.FirstOrDefault(e => e.id == id);
+                    var entity = entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
                     if (entity == null)
                     {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to edit");
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category image with id " + id.ToString() + " not found to edit");
                     }
                     else
                     {
-                        entity.category1 = category.category1;
-                        
-                       
-                       
+                        entity.images = category.images;
+
+
+
 
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
@@ -89,21 +84,16 @@ namespace WebApplication5.Controllers
 
 
 
-
-
-
-
-
-        public HttpResponseMessage Post([FromBody]Category category)
+        public HttpResponseMessage Post([FromBody]CategoryImage category)
         {
             try
             {
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
-                    entities.Categories.Add(category);
+                    entities.CategoryImages.Add(category);
                     entities.SaveChanges();
                     var message = Request.CreateResponse(HttpStatusCode.Created, category);
-                    message.Headers.Location = new Uri(Request.RequestUri + category.id.ToString());
+                    message.Headers.Location = new Uri(Request.RequestUri + category.category_id.ToString());
                     return message;
                 }
             }
@@ -113,36 +103,26 @@ namespace WebApplication5.Controllers
             }
         }
 
+
+
         public HttpResponseMessage Delete(int id)
         {
             try
             {
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
-                    var entity = entities.Categories.FirstOrDefault(e => e.id == id);
-                    var product = entities.Products.FirstOrDefault(x => x.category_id == id);
-                    if (product == null)
+                    var entity = entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
+                    if (entity == null)
                     {
-                        if (entity == null)
-                        {
-                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to delete");
-                        }
-                        else
-                        {
-                            entities.Categories.Remove(entity);
-                            entities.SaveChanges();
-                            return Request.CreateResponse(HttpStatusCode.OK);
-                        }
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category image with id " + id.ToString() + " not found to delete");
                     }
-
                     else
                     {
-                        entities.Products.Remove(product);
-                        entities.Categories.Remove(entity);
+                        entities.CategoryImages.Remove(entity);
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK);
-
                     }
+
                 }
             }
             catch (Exception ex)
@@ -150,6 +130,9 @@ namespace WebApplication5.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+
+
+
 
 
 

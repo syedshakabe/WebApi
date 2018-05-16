@@ -5,37 +5,26 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Store2DoorDataAccess;
-using System.Web.Http.Cors;
+
 namespace WebApplication5.Controllers
 {
-      [EnableCorsAttribute("*", "*", "*")]
-     
-    public class Store2DoorController : ApiController
+    public class ProductImagesController : ApiController
     {
 
-         
-       Store2DoorEntities db = new Store2DoorEntities();
 
 
-        public Store2DoorController()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-        }
-
-       
-       
-        public IEnumerable<Product>Get()
+         public IEnumerable<ProductImage>Get()
         {
             using(Store2DoorEntities entities = new Store2DoorEntities())
             {
-                return entities.Products.ToList();
+                return entities.ProductImages.ToList();
             }
         }
         public HttpResponseMessage Get(int id)
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-                var entity =  entities.Products.FirstOrDefault(e => e.id == id);
+                var entity =  entities.ProductImages.FirstOrDefault(e => e.product_id == id);
                 {
                     if(entity!=null)
                     {
@@ -48,16 +37,16 @@ namespace WebApplication5.Controllers
                 }
             }
         }
-        public HttpResponseMessage Post([FromBody] Product product)
+        public HttpResponseMessage Post([FromBody] ProductImage product)
         {
             try
             {
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
-                    entities.Products.Add(product);
+                    entities.ProductImages.Add(product);
                     entities.SaveChanges();
                     var message = Request.CreateResponse(HttpStatusCode.Created, product);
-                    message.Headers.Location = new Uri(Request.RequestUri + product.id.ToString());
+                    message.Headers.Location = new Uri(Request.RequestUri + product.product_id.ToString());
                     return message;
                 }
             }
@@ -67,34 +56,26 @@ namespace WebApplication5.Controllers
             }
         }
 
+
+
+
+
+
+
         public HttpResponseMessage Delete(int id)
         {
-            try { 
+            try 
+            { 
             using(Store2DoorEntities entities = new Store2DoorEntities())
             {
-                var entity = entities.Products.FirstOrDefault(e => e.id == id);
-                var cart = entities.Cart_Item.FirstOrDefault(x => x.product_id == id);
-                if(cart==null)
-                {
-                    if(entity==null)
-                    {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to delete");
-                    }
-                    else
-                    {
-                        entities.Products.Remove(entity);
-                        entities.SaveChanges();
-                        return Request.CreateResponse(HttpStatusCode.OK);
-                    } 
-                }
-                else
-                {
-                    entities.Cart_Item.Remove(cart);
-                    entities.Products.Remove(entity);
+                var entity = entities.ProductImages.FirstOrDefault(e => e.product_id == id);
+              
+              
+                    entities.ProductImages.Remove(entity);
                     entities.SaveChanges();
                     return Request.CreateResponse(HttpStatusCode.OK);
 
-                }
+              
                 
                
             }
@@ -103,25 +84,30 @@ namespace WebApplication5.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-        public HttpResponseMessage Put(int id ,[FromBody]Product product)
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        public HttpResponseMessage Put(int id ,[FromBody]ProductImage product)
         {
             try
             {
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
-                    var entity = entities.Products.FirstOrDefault(e => e.id == id);
+                    var entity = entities.ProductImages.FirstOrDefault(e => e.product_id == id);
                     if (entity == null)
                     {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to edit");
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product image with id " + id.ToString() + " not found to edit");
                     }
                     else
                     {
-                        entity.name = product.name;
-                        entity.price = product.price;
-                       
-                        entity.product_type = product.product_type;
-                        entity.quantity_type = product.quantity_type;
-                        entity.stock = product.stock;
+                       entity.image=product.image;
 
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
@@ -135,3 +121,16 @@ namespace WebApplication5.Controllers
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+    

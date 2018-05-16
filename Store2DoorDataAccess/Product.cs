@@ -24,10 +24,12 @@ namespace Store2DoorDataAccess
         public string price { get; set; }
         public string description { get; set; }
         public string stock { get; set; }
-        public string image { get; set; }
         public string quantity_type { get; set; }
         public string product_type { get; set; }
+        public Nullable<int> category_id { get; set; }
     
         public virtual ICollection<Cart_Item> Cart_Item { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual ProductImage ProductImage { get; set; }
     }
 }

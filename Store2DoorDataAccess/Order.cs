@@ -16,7 +16,6 @@ namespace Store2DoorDataAccess
     {
         public Order()
         {
-           
             this.Cart_Item = new HashSet<Cart_Item>();
         }
     
@@ -25,6 +24,7 @@ namespace Store2DoorDataAccess
         public Nullable<System.DateTime> date { get; set; }
         public string status { get; set; }
         public Nullable<decimal> total_bill { get; set; }
+        public string location { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual ICollection<Cart_Item> Cart_Item { get; set; }
