@@ -121,6 +121,14 @@ namespace WebApplication5.Controllers
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
                     var product = entities.Products.FirstOrDefault(x => x.category_id == id);
+                    var image = entities.CategoryImages.FirstOrDefault(y => y.category_id == id);
+
+
+                    if(image!=null)
+                    {
+                        entities.CategoryImages.Remove(image);
+                    }
+
                     if (product == null)
                     {
                         if (entity == null)
