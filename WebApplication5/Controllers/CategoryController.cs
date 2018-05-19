@@ -101,6 +101,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     entities.Categories.Add(category);
+                    entities.CategoryImages.Add(category.CategoryImage);
                     entities.SaveChanges();
                     var message = Request.CreateResponse(HttpStatusCode.Created, category);
                     message.Headers.Location = new Uri(Request.RequestUri + category.id.ToString());
@@ -158,8 +159,6 @@ namespace WebApplication5.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-
-
 
 
     }
