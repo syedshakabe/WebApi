@@ -66,6 +66,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     entities.Products.Add(product);
+                    entities.ProductImages.Add(product.ProductImage);
                     entities.SaveChanges();
                     var message = Request.CreateResponse(HttpStatusCode.Created, product);
                     message.Headers.Location = new Uri(Request.RequestUri + product.id.ToString());
@@ -74,7 +75,7 @@ namespace WebApplication5.Controllers
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex);
             }
         }
 
@@ -121,6 +122,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Products.FirstOrDefault(e => e.id == id);
+                    entities.ProductImages.FirstOrDefault(x => x.product_id == id);
                     if (entity == null)
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to edit");
@@ -129,10 +131,10 @@ namespace WebApplication5.Controllers
                     {
                         entity.name = product.name;
                         entity.price = product.price;
-                       
                         entity.product_type = product.product_type;
                         entity.quantity_type = product.quantity_type;
                         entity.stock = product.stock;
+                        entity.ProductImage.image = product.ProductImage.image;
 
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
@@ -141,7 +143,7 @@ namespace WebApplication5.Controllers
                 }
             }catch(Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex);
             }
         }
     }

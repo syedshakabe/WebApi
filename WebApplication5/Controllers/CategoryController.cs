@@ -61,6 +61,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
+                  entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
                     if (entity == null)
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to edit");
@@ -68,19 +69,26 @@ namespace WebApplication5.Controllers
                     else
                     {
                         entity.category1 = category.category1;
-                        
-                       
-                       
-
+                       entity.CategoryImage.images = category.CategoryImage.images;
+                        //entity1.images= category.CategoryImage.images;
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
 
                 }
             }
+            catch (System.Data.Entity.Core.UpdateException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+            }
+
+            catch (System.Data.Entity.Infrastructure.DbUpdateException exc) //DbContext
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, exc);
+            }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
