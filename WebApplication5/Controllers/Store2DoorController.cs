@@ -86,6 +86,7 @@ namespace WebApplication5.Controllers
             {
                 var entity = entities.Products.FirstOrDefault(e => e.id == id);
                 var cart = entities.Cart_Item.FirstOrDefault(x => x.product_id == id);
+                var img = entities.ProductImages.FirstOrDefault(y => y.product_id== id);
                 if(cart==null)
                 {
                     if(entity==null)
@@ -94,6 +95,7 @@ namespace WebApplication5.Controllers
                     }
                     else
                     {
+                        entities.ProductImages.Remove(img);
                         entities.Products.Remove(entity);
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK);
@@ -112,7 +114,7 @@ namespace WebApplication5.Controllers
             }
             }catch(Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex);
             }
         }
         public HttpResponseMessage Put(int id ,[FromBody]Product product)
