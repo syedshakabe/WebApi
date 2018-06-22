@@ -6,6 +6,9 @@ namespace WebApplication5.Models
 {
     // Models used as parameters to AccountController actions.
 
+
+
+     
     public class AddExternalLoginBindingModel
     {
         [Required]
@@ -50,11 +53,7 @@ namespace WebApplication5.Models
         public string DisplayName { get; set; }
 
 
-        //added by me
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Roles")]
-        public string Roles { get; set; }
+       
 
 
 

@@ -34,7 +34,7 @@ namespace WebApplication5.Models
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public string DispalyName { get; set; }
-        //public string DisplayName { get; set; }
+    //public string DisplayName { get; set; }
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }

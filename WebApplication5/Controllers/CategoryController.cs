@@ -61,7 +61,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
-                  entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
+                    entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
                     if (entity == null)
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to edit");
