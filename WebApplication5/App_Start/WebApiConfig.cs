@@ -61,7 +61,6 @@ namespace WebApplication5
             //var json = config.Formatters.JsonFormatter;
             //json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-           
 
         }
     }
