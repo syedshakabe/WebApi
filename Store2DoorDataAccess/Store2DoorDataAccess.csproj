@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A1C8ADA-30E8-4CE1-A6CA-D0D8FB144E57}</ProjectGuid>
+    <ProjectGuid>{9BB82583-06A4-4100-A071-BB216644B995}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Store2DoorDataAccess</RootNamespace>
@@ -36,11 +36,30 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.4\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.4\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,80 +67,64 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Cart_Item.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CategoryImage.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductImage.cs">
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Store2DoorModel.Context.cs">
+    <Compile Include="Store2DoorDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Store2DoorModel.Context.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Store2DoorModel.cs">
+    <Compile Include="Store2DoorDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Store2DoorModel.tt</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Store2DoorModel.Designer.cs">
+    <Compile Include="Store2DoorDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Store2DoorModel.edmx</DependentUpon>
+      <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="Store2DoorModel.edmx">
+    <EntityDeploy Include="Store2DoorDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Store2DoorModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>Store2DoorDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Store2DoorModel.edmx.diagram">
-      <DependentUpon>Store2DoorModel.edmx</DependentUpon>
+    <None Include="Store2DoorDataModel.edmx.diagram">
+      <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Store2DoorModel.Context.tt">
+    <Content Include="Store2DoorDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Store2DoorModel.edmx</DependentUpon>
-      <LastGenOutput>Store2DoorModel.Context.cs</LastGenOutput>
+      <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
+      <LastGenOutput>Store2DoorDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Store2DoorModel.tt">
+    <Content Include="Store2DoorDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Store2DoorModel.edmx</DependentUpon>
-      <LastGenOutput>Store2DoorModel.cs</LastGenOutput>
+      <DependentUpon>Store2DoorDataModel.edmx</DependentUpon>
+      <LastGenOutput>Store2DoorDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

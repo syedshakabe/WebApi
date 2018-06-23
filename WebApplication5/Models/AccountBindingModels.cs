@@ -6,9 +6,6 @@ namespace WebApplication5.Models
 {
     // Models used as parameters to AccountController actions.
 
-
-
-     
     public class AddExternalLoginBindingModel
     {
         [Required]
@@ -52,8 +49,7 @@ namespace WebApplication5.Models
         [Display(Name = "DisplayName")]
         public string DisplayName { get; set; }
 
-
-       
+        
 
 
 
@@ -73,7 +69,6 @@ namespace WebApplication5.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
     }
 
     public class RegisterExternalBindingModel

@@ -61,7 +61,6 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
-                    entities.CategoryImages.FirstOrDefault(e => e.category_id == id);
                     if (entity == null)
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to edit");
@@ -69,26 +68,19 @@ namespace WebApplication5.Controllers
                     else
                     {
                         entity.category1 = category.category1;
-                       entity.CategoryImage.images = category.CategoryImage.images;
-                        //entity1.images= category.CategoryImage.images;
+                        
+                        entity.image = category.image;
+                       
+
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
 
                 }
             }
-            catch (System.Data.Entity.Core.UpdateException e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
-            }
-
-            catch (System.Data.Entity.Infrastructure.DbUpdateException exc) //DbContext
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, exc);
-            }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
             }
         }
 
@@ -109,7 +101,6 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     entities.Categories.Add(category);
-                    entities.CategoryImages.Add(category.CategoryImage);
                     entities.SaveChanges();
                     var message = Request.CreateResponse(HttpStatusCode.Created, category);
                     message.Headers.Location = new Uri(Request.RequestUri + category.id.ToString());
@@ -129,37 +120,17 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Categories.FirstOrDefault(e => e.id == id);
-                    var product = entities.Products.FirstOrDefault(x => x.category_id == id);
-                    var image = entities.CategoryImages.FirstOrDefault(y => y.category_id == id);
-
-
-                    if(image!=null)
+                    if (entity == null)
                     {
-                        entities.CategoryImages.Remove(image);
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to delete");
                     }
-
-                    if (product == null)
-                    {
-                        if (entity == null)
-                        {
-                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id " + id.ToString() + " not found to delete");
-                        }
-                        else
-                        {
-                            entities.Categories.Remove(entity);
-                            entities.SaveChanges();
-                            return Request.CreateResponse(HttpStatusCode.OK);
-                        }
-                    }
-
                     else
                     {
-                        entities.Products.Remove(product);
                         entities.Categories.Remove(entity);
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK);
-
                     }
+
                 }
             }
             catch (Exception ex)
@@ -167,6 +138,8 @@ namespace WebApplication5.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+
+
 
 
     }

@@ -16,10 +16,7 @@ namespace Store2DoorDataAccess
     {
         public AspNetUser()
         {
-            this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
-            this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.Orders = new HashSet<Order>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
         public string Id { get; set; }
@@ -36,9 +33,6 @@ namespace Store2DoorDataAccess
         public string UserName { get; set; }
         public string DisplayName { get; set; }
     
-        public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

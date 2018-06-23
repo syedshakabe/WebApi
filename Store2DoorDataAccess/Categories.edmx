@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart_Item">
+          <Key>
+            <PropertyRef Name="cart-id" />
+          </Key>
+          <Property Name="cart-id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product-id" Type="int" Nullable="false" />
+          <Property Name="product-price" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="product-name" Type="varchar(max)" Nullable="false" />
+          <Property Name="user-id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="order-id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'db2bdb3035248b4a5ab728a8a900c0ea58.dbo.Category' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="varchar(max)" />
+          <Property Name="image" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order-id" />
+          </Key>
+          <Property Name="order-id" Type="int" Nullable="false" />
+          <Property Name="user-id" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="total-bill" Type="smallmoney" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cart_Item_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order-id" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="order-id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Category].[id] AS [id], 
+    [Category].[category] AS [category], 
+    [Category].[image] AS [image]
+    FROM [dbo].[Category] AS [Category]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Cart_Item_Order" Association="Self.FK_Cart_Item_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cart_Item">
+          <Key>
+            <PropertyRef Name="cart_id" />
+          </Key>
+          <Property Name="cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="product_price" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Cart_Item_Order" FromRole="Cart_Item" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="total_bill" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Cart_Item" Relationship="Self.FK_Cart_Item_Order" FromRole="Order" ToRole="Cart_Item" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Cart_Item_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CategoryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <AssociationSet Name="FK_Cart_Item_Order" Association="Self.FK_Cart_Item_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="CategoryEntities">
+          <EntitySetMapping Name="Cart_Item">
+            <EntityTypeMapping TypeName="DatabaseModel.Cart_Item">
+              <MappingFragment StoreEntitySet="Cart_Item">
+                <ScalarProperty Name="cart_id" ColumnName="cart-id" />
+                <ScalarProperty Name="product_id" ColumnName="product-id" />
+                <ScalarProperty Name="product_price" ColumnName="product-price" />
+                <ScalarProperty Name="product_name" ColumnName="product-name" />
+                <ScalarProperty Name="user_id" ColumnName="user-id" />
+                <ScalarProperty Name="order_id" ColumnName="order-id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DatabaseModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="order_id" ColumnName="order-id" />
+                <ScalarProperty Name="user_id" ColumnName="user-id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="total_bill" ColumnName="total-bill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="DatabaseModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="category1" ColumnName="category" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

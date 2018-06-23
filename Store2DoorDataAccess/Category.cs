@@ -14,15 +14,8 @@ namespace Store2DoorDataAccess
     
     public partial class Category
     {
-        public Category()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int id { get; set; }
         public string category1 { get; set; }
-    
-        public virtual CategoryImage CategoryImage { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public string image { get; set; }
     }
 }

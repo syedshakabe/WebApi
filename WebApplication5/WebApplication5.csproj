@@ -214,10 +214,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\CategoryImagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\ProductImagesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\Store2DoorController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -309,18 +307,18 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Store2DoorDataAccess\Store2DoorDataAccess.csproj">
+      <Project>{9bb82583-06a4-4100-a071-bb216644b995}</Project>
+      <Name>Store2DoorDataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803302042281_AddedFieldintable.resx">
       <DependentUpon>201803302042281_AddedFieldintable.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Store2DoorDataAccess\Store2DoorDataAccess.csproj">
-      <Project>{0a1c8ada-30e8-4ce1-a6ca-d0d8fb144e57}</Project>
-      <Name>Store2DoorDataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
