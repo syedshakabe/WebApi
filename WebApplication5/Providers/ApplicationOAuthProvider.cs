@@ -90,7 +90,7 @@ namespace WebApplication5.Providers
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "UserName", userName}
+                { "UserName", userName }
             };
             return new AuthenticationProperties(data);
         }
