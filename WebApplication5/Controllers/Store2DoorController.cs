@@ -20,6 +20,7 @@ namespace WebApplication5.Controllers
         public Store2DoorController()
         {
             db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.AutoDetectChangesEnabled = false;
         }
 
        
@@ -35,10 +36,20 @@ namespace WebApplication5.Controllers
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-                var entity =  entities.Products.FirstOrDefault(e => e.id == id);
-                {
+                var entity = entities.Products.Where(e=>e.category_id==id).ToList();
+                
+                //foreach (var x in entities.Products)
+                //{
+                //    if (x.category_id == id)
+                //    {
+                //        entity.Add(x);
+                //    }
+                //}
+
+             
                     if(entity!=null)
                     {
+
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
                     else
@@ -47,7 +58,7 @@ namespace WebApplication5.Controllers
                     }
                 }
             }
-        }
+        
         public HttpResponseMessage Post([FromBody] Product product)
         {
             try
@@ -55,6 +66,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     entities.Products.Add(product);
+                    entities.ProductImages.Add(product.ProductImage);
                     entities.SaveChanges();
                     var message = Request.CreateResponse(HttpStatusCode.Created, product);
                     message.Headers.Location = new Uri(Request.RequestUri + product.id.ToString());
@@ -63,7 +75,7 @@ namespace WebApplication5.Controllers
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex);
             }
         }
 
@@ -74,6 +86,7 @@ namespace WebApplication5.Controllers
             {
                 var entity = entities.Products.FirstOrDefault(e => e.id == id);
                 var cart = entities.Cart_Item.FirstOrDefault(x => x.product_id == id);
+                var img = entities.ProductImages.FirstOrDefault(y => y.product_id== id);
                 if(cart==null)
                 {
                     if(entity==null)
@@ -82,6 +95,7 @@ namespace WebApplication5.Controllers
                     }
                     else
                     {
+                        entities.ProductImages.Remove(img);
                         entities.Products.Remove(entity);
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK);
@@ -100,7 +114,7 @@ namespace WebApplication5.Controllers
             }
             }catch(Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex);
             }
         }
         public HttpResponseMessage Put(int id ,[FromBody]Product product)
@@ -110,6 +124,7 @@ namespace WebApplication5.Controllers
                 using (Store2DoorEntities entities = new Store2DoorEntities())
                 {
                     var entity = entities.Products.FirstOrDefault(e => e.id == id);
+                    entities.ProductImages.FirstOrDefault(x => x.product_id == id);
                     if (entity == null)
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to edit");
@@ -118,10 +133,10 @@ namespace WebApplication5.Controllers
                     {
                         entity.name = product.name;
                         entity.price = product.price;
-                        entity.image = product.image;
                         entity.product_type = product.product_type;
                         entity.quantity_type = product.quantity_type;
                         entity.stock = product.stock;
+                        entity.ProductImage.image = product.ProductImage.image;
 
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
@@ -130,7 +145,7 @@ namespace WebApplication5.Controllers
                 }
             }catch(Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.OK, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex);
             }
         }
     }

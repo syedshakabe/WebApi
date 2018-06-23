@@ -17,6 +17,7 @@ namespace Store2DoorDataAccess
         public int cart_id { get; set; }
         public int product_id { get; set; }
         public int order_id { get; set; }
+        public Nullable<int> quantity { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
