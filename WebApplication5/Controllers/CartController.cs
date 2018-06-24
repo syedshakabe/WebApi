@@ -33,8 +33,9 @@ namespace WebApplication5.Controllers
                     {
                         id = c.cart_id,
                         productName = p.name,
-                        productPrice = p.price
-                    }).ToList();
+                        productPrice = p.price,
+                        productQuantity = c.quantity,
+                     }).ToList();
 
                 if (result != null)
                 {
@@ -71,8 +72,9 @@ namespace WebApplication5.Controllers
                       order_id = o.order_id,
 
                       productName = p.name,
-                      productPrice = p.price
-                  }).ToList();
+                      productPrice = p.price,
+                      cartQuantity = c.quantity,
+                    }).ToList();
 
 
                 if (result != null)

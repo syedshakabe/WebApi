@@ -43,7 +43,8 @@ namespace WebApplication5.Controllers
                         TotalBill = o.total_bill,
                         OrderStatus = o.status,
                         order_id = o.order_id,
-                        orderDate = o.date
+                        orderDate = o.date,
+                        orderLocation=o.location
                     }).ToList();
 
                 if(result!=null)
@@ -78,7 +79,8 @@ namespace WebApplication5.Controllers
                         userPhone = u.PhoneNumber,
                         TotalBill = o.total_bill,
                         OrderStatus = o.status,
-                        order_id = o.order_id
+                        order_id = o.order_id,
+                        orderLocation = o.location
                     }).ToList());
 
             }
@@ -223,7 +225,8 @@ namespace WebApplication5.Controllers
                                 TotalBill = o.total_bill,
                                 OrderStatus = o.status,
                                 order_id = o.order_id,
-                                orderDate = o.date
+                                orderDate = o.date,
+                                orderLocation = o.location
                             }).ToList();
 
                     if (result != null)
