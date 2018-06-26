@@ -37,24 +37,15 @@ namespace WebApplication5.Controllers
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
                 var entity = entities.Products.Where(e=>e.category_id==id).ToList();
-                
-                //foreach (var x in entities.Products)
-                //{
-                //    if (x.category_id == id)
-                //    {
-                //        entity.Add(x);
-                //    }
-                //}
-
-             
-                    if(entity!=null)
+               
+                    if(entity.Count!=0)
                     {
 
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
                     else
                     {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found");
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with category " + id.ToString() + " not found");
                     }
                 }
             }
@@ -85,30 +76,46 @@ namespace WebApplication5.Controllers
             using(Store2DoorEntities entities = new Store2DoorEntities())
             {
                 var entity = entities.Products.FirstOrDefault(e => e.id == id);
-                var cart = entities.Cart_Item.FirstOrDefault(x => x.product_id == id);
+                var cart = entities.Cart_Item.Where(x => x.product_id == id).Select(x=>x).ToList();
                 var img = entities.ProductImages.FirstOrDefault(y => y.product_id== id);
-                if(cart==null)
-                {
-                    if(entity==null)
-                    {
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to delete");
-                    }
-                    else
-                    {
-                        entities.ProductImages.Remove(img);
-                        entities.Products.Remove(entity);
-                        entities.SaveChanges();
-                        return Request.CreateResponse(HttpStatusCode.OK);
-                    } 
-                }
-                else
-                {
-                    entities.Cart_Item.Remove(cart);
-                    entities.Products.Remove(entity);
-                    entities.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK);
+               
 
+                if(entity==null)
+                {
+                   return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Product with id " + id.ToString() + " not found to delete");
                 }
+                else 
+                {
+                     if(cart.Count==0)
+                     {
+                         if(img!=null)
+                         {
+                             entities.ProductImages.Remove(img);
+                             entities.SaveChanges();
+                         }
+                         entities.Products.Remove(entity);
+                         entities.SaveChanges();
+                         return Request.CreateResponse(HttpStatusCode.OK,entity);
+                     }
+                     else
+                     {
+                         foreach (var x in cart)
+                         {
+                             entities.Cart_Item.Remove(x);
+                         }
+                         
+                         if (img != null)
+                         {
+                             entities.ProductImages.Remove(img);
+                             entities.SaveChanges();
+                         }
+                         entities.Products.Remove(entity);
+                         entities.SaveChanges();
+                         return Request.CreateResponse(HttpStatusCode.OK, entity);
+                     }
+                }
+               
+                
                 
                
             }

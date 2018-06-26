@@ -115,5 +115,51 @@ namespace WebApplication5.Controllers
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+         public HttpResponseMessage Delete(int id)
+        {
+            try
+            {
+                using (Store2DoorEntities entities = new Store2DoorEntities())
+                {
+                    var carts = entities.Cart_Item.Where(c => c.product_id == id).Select(c => c).ToList();
+                   if(carts.Count()==0)
+                   {
+                       return Request.CreateResponse(HttpStatusCode.NotFound, "This product is not present in cart");
+                   }
+                    else
+                   {
+                       foreach (var x in carts)
+                       {
+                           entities.Cart_Item.Remove(x);
+                       }
+
+                       entities.SaveChanges();
+                       return Request.CreateResponse(HttpStatusCode.OK,carts);
+                   }
+                       
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
+    
+
     }
 }
