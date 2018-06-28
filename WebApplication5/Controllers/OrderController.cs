@@ -103,6 +103,7 @@ namespace WebApplication5.Controllers
                     n.total_bill = Convert.ToDecimal(order.total_bill);
                     n.user_id = order.user_id;
                     n.date = DateTime.Now.AddHours(5) ;
+                    n.location = order.location;
                              entities.Orders.Add(n);
                              entities.SaveChanges();
                              var message = Request.CreateResponse(HttpStatusCode.Created, n);
