@@ -23,11 +23,16 @@ namespace WebApplication5
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute("DefaultApiWithId", "Api/{controller}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
-            config.Routes.MapHttpRoute("DefaultApiWithAction", "Api/{controller}/{action}");
+            config.Routes.MapHttpRoute("DefaultApiWithAction", "Api/{controller}/{action}/{id}", defaults: new { id = RouteParameter.Optional });
+            //config.Routes.MapHttpRoute("DefaultApiWithAction", "Api/{controller}/{action}/{id}");
             config.Routes.MapHttpRoute("DefaultApiGet", "Api/{controller}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
             config.Routes.MapHttpRoute("DefaultApiPost", "Api/{controller}", new { action = "Post" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
 
-
+        /*    config.Routes.MapHttpRoute(
+    name: "CustomApi",
+    routeTemplate: "api/{controller}/{action}/{id}",
+    defaults: new { id = RouteParameter.Optional }
+);*/
                         //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
             //    routeTemplate: "api/{controller}/{id}",
