@@ -11,7 +11,7 @@ namespace WebApplication5.Controllers
 {
     public class OrderController : ApiController
     {
-       Store2DoorEntities db = new Store2DoorEntities();
+        Store2DoorEntities db = new Store2DoorEntities();
 
 
         public OrderController()
@@ -19,35 +19,35 @@ namespace WebApplication5.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-    
+
 
         public HttpResponseMessage Get()
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
 
-              //recieving all orders
+                //recieving all orders
 
                 var result = (
                     from u in entities.AspNetUsers
                     join o in entities.Orders
                     on u.Id equals o.user_id
-                    where o.status!="delivered"
+                    where o.status != "delivered"
                     orderby o.date descending
                     select new
                     {
-                       // userId = u.Id,
+                        // userId = u.Id,
                         userPhoneNumber = u.PhoneNumber,
-                        userName=u.DisplayName,
+                        userName = u.DisplayName,
                         UserEmail = u.Email,
                         TotalBill = o.total_bill,
                         OrderStatus = o.status,
                         order_id = o.order_id,
                         orderDate = o.date,
-                        orderLocation=o.location
+                        orderLocation = o.location
                     }).ToList();
 
-                if(result!=null)
+                if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
@@ -55,7 +55,7 @@ namespace WebApplication5.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, "No pending orders");
                 }
-                
+
             }
         }
 
@@ -63,32 +63,32 @@ namespace WebApplication5.Controllers
         {
             using (Store2DoorEntities entities = new Store2DoorEntities())
             {
-               
-              
+
+
                 //recieving orders
-                   return Request.CreateResponse(HttpStatusCode.OK, (
-                    from u in entities.AspNetUsers
-                    join o in entities.Orders
-                    on u.Id equals o.user_id
-                    where o.order_id==id
-                    select new
-                    {
-                       // Userid = u.Id,
-                        UserName = u.DisplayName,
-                        UserEmail = u.Email,
-                        userPhone = u.PhoneNumber,
-                        TotalBill = o.total_bill,
-                        OrderStatus = o.status,
-                        order_id = o.order_id,
-                        orderLocation = o.location
-                    }).ToList());
+                return Request.CreateResponse(HttpStatusCode.OK, (
+                 from u in entities.AspNetUsers
+                 join o in entities.Orders
+                 on u.Id equals o.user_id
+                 where o.order_id == id
+                 select new
+                 {
+                     // Userid = u.Id,
+                     UserName = u.DisplayName,
+                     UserEmail = u.Email,
+                     userPhone = u.PhoneNumber,
+                     TotalBill = o.total_bill,
+                     OrderStatus = o.status,
+                     order_id = o.order_id,
+                     orderLocation = o.location
+                 }).ToList());
 
             }
 
 
-             
-                
-            }
+
+
+        }
 
 
         [Authorize]
@@ -102,13 +102,13 @@ namespace WebApplication5.Controllers
                     n.status = "pending";
                     n.total_bill = Convert.ToDecimal(order.total_bill);
                     n.user_id = order.user_id;
-                    n.date = DateTime.Now.AddHours(5) ;
+                    n.date = DateTime.Now.AddHours(5);
                     n.location = order.location;
-                             entities.Orders.Add(n);
-                             entities.SaveChanges();
-                             var message = Request.CreateResponse(HttpStatusCode.Created, n);
-                             message.Headers.Location = new Uri(Request.RequestUri + n.order_id.ToString());
-                             return message;
+                    entities.Orders.Add(n);
+                    entities.SaveChanges();
+                    var message = Request.CreateResponse(HttpStatusCode.Created, n);
+                    message.Headers.Location = new Uri(Request.RequestUri + n.order_id.ToString());
+                    return message;
                 }
             }
             catch (Exception ex)
@@ -132,7 +132,7 @@ namespace WebApplication5.Controllers
                     }
                     else
                     {
-                        entity.status =order.status;
+                        entity.status = order.status;
 
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, entity);
@@ -199,12 +199,12 @@ namespace WebApplication5.Controllers
         }
 
 
-        
 
 
-    
-    [HttpGet]
-   
+
+
+        [HttpGet]
+
         public HttpResponseMessage GetAll()
         {
             try
@@ -215,7 +215,7 @@ namespace WebApplication5.Controllers
                             from u in entities.AspNetUsers
                             join o in entities.Orders
                             on u.Id equals o.user_id
-                            where o.status != "accepted"&&o.status!="pending"
+                            where o.status != "accepted" && o.status != "pending"
                             orderby o.date descending
                             select new
                             {
@@ -245,18 +245,37 @@ namespace WebApplication5.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
 
-        } 
-
-     
-
-
         }
 
-           
-        
 
 
 
-        
+        [HttpGet]
+
+        public HttpResponseMessage GetUserOrders(string id)
+        {
+            try
+            {
+                using (Store2DoorEntities entities = new Store2DoorEntities())
+                {
+                    var orders = entities.Orders.Where(o => o.user_id == id).ToList();
+
+                    if (orders != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, orders);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No orders");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+
+        }
     }
+}
 
